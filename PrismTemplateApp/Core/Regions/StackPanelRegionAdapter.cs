@@ -39,7 +39,7 @@ namespace PrismTemplateApp.Core.Regions
         ///     就是 StackPanel
         /// </param>
         protected override void Adapt(IRegion region, StackPanel regionTarget)
-        { 
+        {
             // 当region 的 Views 集合发生改变
             region.Views.CollectionChanged += (s, e) =>
             {
