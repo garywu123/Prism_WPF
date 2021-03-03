@@ -1,7 +1,6 @@
-﻿<prism:PrismApplication x:Class="FirstApplication.App, FirstApplication, Version=1.0.0.0, Culture=neutral"
+﻿<prism:PrismApplication x:Class="FirstApplication.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:PrismWPF"
              xmlns:prism="http://prismlibrary.com/"
              >
     <Application.Resources>
