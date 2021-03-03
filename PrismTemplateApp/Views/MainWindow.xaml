@@ -1,0 +1,13 @@
+﻿<Window x:Class="PrismTemplateApp.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:prism="http://prismlibrary.com/"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        Title="{Binding Title}" Height="350" Width="525" >
+    <Grid>
+        <!-- 这里定义了一个 Region，注意 Region 的 Name 必须是唯一的 -->
+        <ContentControl prism:RegionManager.RegionName="ContentRegion" />
+
+
+    </Grid>
+</Window>
