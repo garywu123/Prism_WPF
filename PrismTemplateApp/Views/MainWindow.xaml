@@ -5,7 +5,9 @@
         prism:ViewModelLocator.AutoWireViewModel="True"
         Title="{Binding Title}" Height="350" Width="525" >
     <Grid>
-        <!-- 这里定义了一个 Region，注意 Region 的 Name 必须是唯一的 -->
+        <!-- 这里定义了一个 Region，注意 Region 的 Name 必须是唯一的 
+            并且 只支持 ContentControl，如果你所要添加的内容不是 ContentControl，比如是一个 StackPanel，
+            你就需要自定义一个 RegionAdapter，将 StackPanel 转为一个 Region -->
         <ContentControl prism:RegionManager.RegionName="ContentRegion" />
 
 
