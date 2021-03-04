@@ -10,6 +10,8 @@
 ///     一个用来代表 View A 的模块。在 WPF PRISM 中，每一个 View 都是独立的模块。
 /// 该模块的采用的 WPF User Control Lib 模板，需要添加 Nuget Prism WPF。
 /// </summary>
+using System.Windows;
+using System.Windows.Controls;
 using ModuleA.Views;
 using Prism.Ioc;
 using Prism.Modularity;
@@ -53,7 +55,24 @@ namespace ModuleA
         /// <param name="containerProvider"></param>
         public void OnInitialized(IContainerProvider containerProvider)
         {
-            _regionManager.RegisterViewWithRegion("ContentRegion", typeof(ViewA));
+            // 方法1：通过 View Dependency 将 Region 与 View 绑定
+            // _regionManager.RegisterViewWithRegion("ContentRegion", typeof(ViewA));
+
+            // 方法2：通过 View Injection 将 View 注入到 Region 中
+            IRegion region = _regionManager.Regions["ContentRegion"];
+            region.Add(containerProvider.Resolve<ViewA>());
+
+            // 创建一个新的 View，修改内容然后添加到 Region 中。
+            var view2 = containerProvider.Resolve<ViewA>();
+            view2.Content = new TextBlock()
+            {
+                Text = "Hello From View B",
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+
+            region.Add(view2);
+            region.Activate(view2);
         }
     }
 }
