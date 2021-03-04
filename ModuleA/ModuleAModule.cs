@@ -10,8 +10,10 @@
 ///     一个用来代表 View A 的模块。在 WPF PRISM 中，每一个 View 都是独立的模块。
 /// 该模块的采用的 WPF User Control Lib 模板，需要添加 Nuget Prism WPF。
 /// </summary>
+using ModuleA.Views;
 using Prism.Ioc;
 using Prism.Modularity;
+using Prism.Regions;
 
 namespace ModuleA
 {
@@ -20,6 +22,22 @@ namespace ModuleA
     /// </summary>
     public class ModuleAModule : IModule
     {
+        /// <summary>
+        ///     在对应 Module 中添加一个 Region Manager，用来进行 View 与 Region 的注册。
+        /// </summary>
+        private readonly IRegionManager _regionManager;
+
+        /// <summary>
+        ///     构造器，用来初始化 region manager
+        /// </summary>
+        /// <param name="regionManager">
+        ///     <see cref="IRegionManager" />
+        /// </param>
+        public ModuleAModule(IRegionManager regionManager)
+        {
+            _regionManager = regionManager;
+        }
+
         /// <summary>
         ///     当你在 App 中注册了该 Module，它会先实现该方法，将 <see cref="ModuleAModule" /> 注册到 App 的
         ///     catalog map 中。
@@ -30,11 +48,12 @@ namespace ModuleA
         }
 
         /// <summary>
-        ///     当 Module 注册完成以后，调用该方法来初始化该 Module。
+        ///     当 Module 注册完成以后，调用该方法来初始化该 Module，并将 Module 所使用到的 View 与目标 Region 进行绑定。
         /// </summary>
         /// <param name="containerProvider"></param>
         public void OnInitialized(IContainerProvider containerProvider)
         {
+            _regionManager.RegisterViewWithRegion("ContentRegion", typeof(ViewA));
         }
     }
 }
