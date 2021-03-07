@@ -10,11 +10,12 @@
 ///     一个用来代表 View A 的模块。在 WPF PRISM 中，每一个 View 都是独立的模块。
 /// 该模块的采用的 WPF User Control Lib 模板，需要添加 Nuget Prism WPF。
 /// </summary>
-using System.Windows;
-using System.Windows.Controls;
+using ModuleA.Controls;
+using ModuleA.ViewModels;
 using ModuleA.Views;
 using Prism.Ioc;
 using Prism.Modularity;
+using Prism.Mvvm;
 using Prism.Regions;
 
 namespace ModuleA
@@ -42,11 +43,17 @@ namespace ModuleA
 
         /// <summary>
         ///     当你在 App 中注册了该 Module，它会先实现该方法，将 <see cref="ModuleAModule" /> 注册到 App 的
-        ///     catalog map 中。
+        ///     catalog map 中。同时，它也是用来定义 View 和 ViewModel 关联的地方。
         /// </summary>
         /// <param name="containerRegistry"></param>
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            // 自定义关联，将 Control A 和 ControlAViewModel 关联（因为ControlA没有按照命名规则来）
+            // ViewModelLocationProvider.Register<ControlA, ControlAViewModel>();
+
+            // 也可以使用工厂方法，根据 View 来创建对应的 ViewModel
+            ViewModelLocationProvider.Register<ControlA>(() => new ControlAViewModel
+                {Text = "Hello From Factory."});
         }
 
         /// <summary>
@@ -59,10 +66,11 @@ namespace ModuleA
             // _regionManager.RegisterViewWithRegion("ContentRegion", typeof(ViewA));
 
             // 方法2：通过 View Injection 将 View 注入到 Region 中
-            IRegion region = _regionManager.Regions["ContentRegion"];
+            var region = _regionManager.Regions["ContentRegion"];
             region.Add(containerProvider.Resolve<ViewA>());
 
-            // 创建一个新的 View，修改内容然后添加到 Region 中。
+            /*
+             * // 创建一个新的 View，修改内容然后添加到 Region 中。
             var view2 = containerProvider.Resolve<ViewA>();
             view2.Content = new TextBlock()
             {
@@ -72,7 +80,7 @@ namespace ModuleA
             };
 
             region.Add(view2);
-            region.Activate(view2);
+            region.Activate(view2);*/
         }
     }
 }
