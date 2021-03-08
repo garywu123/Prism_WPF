@@ -19,5 +19,11 @@
 
         <controls:ControlA />
 
+        <Button Content="{Binding OkButtonText}"
+                Command="{Binding ClickCommand}" />
+
+        <Button Content="{Binding SaveButtonText}"
+                Command="{Binding SaveCommand}"></Button>
+
     </StackPanel>
 </UserControl>
