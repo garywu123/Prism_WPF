@@ -69,6 +69,22 @@ namespace ModuleA
             var region = _regionManager.Regions["ContentRegion"];
             region.Add(containerProvider.Resolve<ViewA>());
 
+            var tabRegion = _regionManager.Regions["TabRegion"];
+
+            // 设置 TabControl 中的子 TabItem
+            var tabA = containerProvider.Resolve<TabView>();
+            SetTitle(tabA, "Tab A");
+            tabRegion.Add(tabA);
+
+            var tabB = containerProvider.Resolve<TabView>();
+            SetTitle(tabB, "Tab B");
+            tabRegion.Add(tabB);
+
+            var tabC = containerProvider.Resolve<TabView>();
+            SetTitle(tabC, "Tab C");
+            tabRegion.Add(tabC);
+
+
             /*
              * // 创建一个新的 View，修改内容然后添加到 Region 中。
             var view2 = containerProvider.Resolve<ViewA>();
@@ -81,6 +97,11 @@ namespace ModuleA
 
             region.Add(view2);
             region.Activate(view2);*/
+        }
+
+        void SetTitle(TabView tab, string title)
+        {
+            ((TabViewModel) tab.DataContext).Title = title;
         }
     }
 }

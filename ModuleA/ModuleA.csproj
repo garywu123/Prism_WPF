@@ -9,6 +9,10 @@
     <PackageReference Include="Prism.Wpf" Version="8.0.0.1909" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PrismDemo.Core\PrismDemo.Core.csproj" />
+  </ItemGroup>
+
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="echo&#xD;&#xA;xcopy &quot;$(TargetDir)$(TargetName)*$(TargetExt)&quot; &quot;$(SolutionDir)\TempTransfer\Modules\&quot;  /S /Y&#xD;&#xA;" />
   </Target>

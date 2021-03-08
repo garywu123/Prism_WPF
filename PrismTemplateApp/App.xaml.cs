@@ -4,6 +4,7 @@ using ModuleA;
 using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
+using PrismDemo.Core.Commands;
 using PrismTemplateApp.Core.Regions;
 using PrismTemplateApp.Views;
 
@@ -21,6 +22,9 @@ namespace PrismTemplateApp
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            // 当需要使用 IApplicationCommands 的时候，创建 ApplicationCommands 单例
+            containerRegistry
+                .RegisterSingleton<IApplicationCommands, ApplicationCommands>();
         }
 
         /// <summary>

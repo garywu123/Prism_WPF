@@ -10,6 +10,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ModuleA\ModuleA.csproj" />
+    <ProjectReference Include="..\PrismDemo.Core\PrismDemo.Core.csproj" />
   </ItemGroup>
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
     <Exec Command="xcopy &quot;$(SolutionDir)\TempTransfer\Modules\*.dll&quot;  &quot;$(TargetDir)\Modules\&quot; /S /Y" />
