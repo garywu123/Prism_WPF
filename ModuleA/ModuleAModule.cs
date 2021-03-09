@@ -13,6 +13,7 @@
 using ModuleA.Controls;
 using ModuleA.ViewModels;
 using ModuleA.Views;
+using ModuleB.Views;
 using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Mvvm;
@@ -62,6 +63,28 @@ namespace ModuleA
         /// <param name="containerProvider"></param>
         public void OnInitialized(IContainerProvider containerProvider)
         {
+            // 展示如何将 View 与 Region 捆绑
+            SetupViewAWithRegion(containerProvider);
+
+            // 设置 TabView 用来展示组合 Delegate Command
+            SetupDelegateCommandView(containerProvider);
+
+            var eventRegion = _regionManager.Regions["EventRegion"];
+            eventRegion.Add(containerProvider.Resolve<EventDemoPage>());
+
+            var messageInputRegion = _regionManager.Regions["MessageInputRegion"];
+            messageInputRegion.Add(containerProvider.Resolve<MessageInput>());
+
+            var messageListRegion = _regionManager.Regions["MessageListRegion"];
+            messageListRegion.Add(containerProvider.Resolve<MessageList>());
+        }
+
+        /// <summary>
+        /// 展示如何将 View 与 Region 捆绑
+        /// </summary>
+        /// <param name="containerProvider"> The container provider </param>
+        private void SetupViewAWithRegion(IContainerProvider containerProvider)
+        {
             // 方法1：通过 View Dependency 将 Region 与 View 绑定
             // _regionManager.RegisterViewWithRegion("ContentRegion", typeof(ViewA));
 
@@ -69,6 +92,22 @@ namespace ModuleA
             var region = _regionManager.Regions["ContentRegion"];
             region.Add(containerProvider.Resolve<ViewA>());
 
+            /*
+             * // 创建一个新的 View，修改内容然后添加到 Region 中。
+            var view2 = containerProvider.Resolve<ViewA>();
+            view2.Content = new TextBlock()
+            {
+                Text = "Hello From View B",
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+
+            region.Add(view2);
+            region.Activate(view2);*/
+        }
+
+        private void SetupDelegateCommandView(IContainerProvider containerProvider)
+        {
             var tabRegion = _regionManager.Regions["TabRegion"];
 
             // 设置 TabControl 中的子 TabItem
@@ -83,20 +122,6 @@ namespace ModuleA
             var tabC = containerProvider.Resolve<TabView>();
             SetTitle(tabC, "Tab C");
             tabRegion.Add(tabC);
-
-
-            /*
-             * // 创建一个新的 View，修改内容然后添加到 Region 中。
-            var view2 = containerProvider.Resolve<ViewA>();
-            view2.Content = new TextBlock()
-            {
-                Text = "Hello From View B",
-                HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center
-            };
-
-            region.Add(view2);
-            region.Activate(view2);*/
         }
 
         void SetTitle(TabView tab, string title)
