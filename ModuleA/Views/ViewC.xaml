@@ -6,11 +6,16 @@
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800">
-    <Grid>
+    <StackPanel>
         <TextBlock Text="{Binding Text}"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    FontSize="48" />
 
-    </Grid>
+        <TextBlock Text="{Binding PageViews}"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="32" />
+
+    </StackPanel>
 </UserControl>
