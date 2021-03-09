@@ -59,6 +59,8 @@ namespace ModuleA
             // 注册 View Navigation
             containerRegistry.RegisterForNavigation<ViewB>();
             containerRegistry.RegisterForNavigation<ViewC>();
+
+            containerRegistry.RegisterForNavigation<PersonDetail>();
         }
 
         /// <summary>
