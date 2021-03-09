@@ -9,7 +9,8 @@
 
     <Window.Resources>
 
-        <Style x:Key="TabItemStyle" TargetType="{x:Type TabControl}">
+        <Style x:Key="TabItemStyle"
+               TargetType="{x:Type TabControl}">
             <Setter Property="ItemContainerStyle">
                 <Setter.Value>
                     <Style TargetType="{x:Type TabItem}">
@@ -20,18 +21,14 @@
             </Setter>
         </Style>
 
-        <!-- <Style x:Key="TabItemHeaderStyle" TargetType="TabItem"> -->
-        <!--     <Setter Property="Header" -->
-        <!--             Value="{Binding DataContext.Title}" /> -->
-        <!-- </Style> -->
     </Window.Resources>
 
     <TabControl>
 
-        <!--region Delegate Command Demo-->
+        <!--region Delegate Command Demo Tab-->
 
         <TabItem Header="Delegate Command">
-            
+
 
             <Grid>
                 <Grid.RowDefinitions>
@@ -49,10 +46,8 @@
 
                 <TabControl Grid.Row="1"
                             Margin="10"
-                            prism:RegionManager.RegionName="TabRegion" 
-                            Style="{StaticResource TabItemStyle}"
-                            >
-                </TabControl>
+                            prism:RegionManager.RegionName="TabRegion"
+                            Style="{StaticResource TabItemStyle}" />
 
                 <Button Grid.Row="2"
                         Margin="5"
@@ -64,12 +59,36 @@
         <!--endregion-->
 
 
-        <!--region IEventAggregator-->
-        <TabItem Header="Event Demo" Height="19" VerticalAlignment="Bottom">
+        <!--region IEventAggregator Tab-->
+        <TabItem Header="Event Demo">
             <ContentControl prism:RegionManager.RegionName="EventRegion" />
         </TabItem>
         <!--endregion-->
 
+        <!--region Navigation Region-->
+        <TabItem Header="Navigation Demo">
+            <StackPanel>
+
+                <!-- Main Content for Navigation -->
+                <ContentControl
+                    prism:RegionManager.RegionName="NavigationRegion" />
+
+                <!--region Button For Navigation between ViewB and ViewC-->
+                <Button Content="Switch To View C"
+                        Command="{Binding NavigateCommand}"
+                        CommandParameter="ViewC"
+                        Margin="5" />
+                <Button Content="Switch To View B"
+                        Command="{Binding NavigateCommand}"
+                        CommandParameter="ViewB"
+                        Margin="5" />
+                <!--endregion-->
+
+            </StackPanel>
+        </TabItem>
+        <!--endregion-->
 
     </TabControl>
+
+
 </Window>

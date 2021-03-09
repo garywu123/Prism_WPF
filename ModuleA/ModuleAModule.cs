@@ -55,6 +55,10 @@ namespace ModuleA
             // 也可以使用工厂方法，根据 View 来创建对应的 ViewModel
             ViewModelLocationProvider.Register<ControlA>(() => new ControlAViewModel
                 {Text = "Hello From Factory."});
+
+            // 注册 View Navigation
+            containerRegistry.RegisterForNavigation<ViewB>();
+            containerRegistry.RegisterForNavigation<ViewC>();
         }
 
         /// <summary>
