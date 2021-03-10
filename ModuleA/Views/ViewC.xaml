@@ -9,6 +9,21 @@
              xmlns:prism="http://prismlibrary.com/"
              xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              prism:ViewModelLocator.AutoWireViewModel="True">
+
+    <UserControl.Resources>
+        <Style x:Key="TabItemStyle"
+               TargetType="{x:Type TabControl}">
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="{x:Type TabItem}">
+                        <Setter Property="Header"
+                                Value="{Binding DataContext.SelectedPerson.LastName}" />
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
     <StackPanel Orientation="Vertical">
         <TextBlock Text="{Binding Text}"
                    HorizontalAlignment="Center"
@@ -31,7 +46,9 @@
             </b:Interaction.Triggers>
         </ListBox>
 
-        <TabControl Grid.Row="1" Margin="10" prism:RegionManager.RegionName="PersonDetailsRegion"/>
+        <TabControl Margin="10"
+                    prism:RegionManager.RegionName="PersonDetailsRegion"
+                    Style="{StaticResource TabItemStyle}" />
 
 
     </StackPanel>

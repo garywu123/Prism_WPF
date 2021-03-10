@@ -6,7 +6,6 @@
 
 #endregion
 
-using System;
 using Prism.Mvvm;
 using Prism.Regions;
 using PrismDemo.Core.Business;
@@ -30,14 +29,16 @@ namespace ModuleA.ViewModels
                 SelectedPerson = navigationContext.Parameters.GetValue<Person>("person");
         }
 
+        // 如果返回 true，代表使用之前创建的 View，不然创建一个新的 View 并注入到 Region 当中。
         public bool IsNavigationTarget(NavigationContext navigationContext)
         {
-            return true;
+            var person = navigationContext.Parameters.GetValue<Person>("person");
+
+            return SelectedPerson.LastName == person.LastName;
         }
 
         public void OnNavigatedFrom(NavigationContext navigationContext)
         {
-           
         }
     }
 }
